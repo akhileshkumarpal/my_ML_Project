@@ -31,7 +31,7 @@ class Migration(migrations.Migration):
                 ('version', models.CharField(max_length=128)),
                 ('owner', models.CharField(max_length=128)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('parent_endpoint', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='endpoint.Endpoint')),
+                ('parent_endpoint', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='endpoints.Endpoint')),
             ],
         ),
         migrations.CreateModel(
@@ -43,7 +43,7 @@ class Migration(migrations.Migration):
                 ('response', models.CharField(max_length=10000)),
                 ('feedback', models.CharField(blank=True, max_length=10000, null=True)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('parent_mlalgorithm', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='endpoint.MLAlgorithm')),
+                ('parent_mlalgorithm', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='endpoints.MLAlgorithm')),
             ],
         ),
         migrations.CreateModel(
@@ -54,7 +54,7 @@ class Migration(migrations.Migration):
                 ('active', models.BooleanField()),
                 ('created_by', models.CharField(max_length=128)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('parent_mlalgorithm', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='status', to='endpoint.MLAlgorithm')),
+                ('parent_mlalgorithm', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='status', to='endpoints.MLAlgorithm')),
             ],
         ),
     ]

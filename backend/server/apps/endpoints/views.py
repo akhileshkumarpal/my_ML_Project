@@ -1,17 +1,18 @@
 from rest_framework import viewsets
 from rest_framework import mixins
+from rest_framework.exceptions import APIException
 
-from apps.endpoint.models import Endpoint
-from apps.endpoint.serializers import EndpointSerializer
+from apps.endpoints.models import Endpoint
+from apps.endpoints.serializers import EndpointSerializer
 
-from apps.endpoint.models import MLAlgorithm
-from apps.endpoint.serializers import MLAlgorithmSerializer
+from apps.endpoints.models import MLAlgorithm
+from apps.endpoints.serializers import MLAlgorithmSerializer
 
-from apps.endpoint.models import MLAlgorithmStatus
-from apps.endpoint.serializers import MLAlgorithmStatusSerializer
+from apps.endpoints.models import MLAlgorithmStatus
+from apps.endpoints.serializers import MLAlgorithmStatusSerializer
 
-from apps.endpoint.models import MLRequest
-from apps.endpoint.serializers import MLRequestSerializer
+from apps.endpoints.models import MLRequest
+from apps.endpoints.serializers import MLRequestSerializer
 
 class EndpointViewSet(
     mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet
@@ -43,6 +44,7 @@ class MLAlgorithmStatusViewSet(
     queryset = MLAlgorithmStatus.objects.all()
     def perform_create(self, serializer):
         try:
+            from django.db import transaction
             with transaction.atomic():
                 instance = serializer.save(active=True)
                 # set active=False for other statuses
